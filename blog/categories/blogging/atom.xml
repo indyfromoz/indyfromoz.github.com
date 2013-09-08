@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blogging | Indrajit Chakrabarty]]></title>
   <link href="http://indyfromoz.github.io/blog/categories/blogging/atom.xml" rel="self"/>
   <link href="http://indyfromoz.github.io/"/>
-  <updated>2013-09-08T23:56:51+10:00</updated>
+  <updated>2013-09-09T00:01:46+10:00</updated>
   <id>http://indyfromoz.github.io/</id>
   <author>
     <name><![CDATA[Indrajit Chakrabarty]]></name>
@@ -20,7 +20,7 @@
     <id>http://indyfromoz.github.io/blog/2013/09/08/hello-octopress</id>
     <content type="html"><![CDATA[<p>I started a <a href="http://indyfromoz.wordpress.com">blog</a> with Wordpress five years ago with the idea of sharing my travels as a developer, geek, technologist, etc. The blog has had more than 50,000 visits over the last five years, if you are one of them reading this post, thank you for visiting my blog.</p>
 
-<p>After five years of using Wordpress as the blog engine and Akismet for keeping the spammers, I wanted to try <a href="http://octopress.org">Octopress</a> after seeing all the cool blogs using it and <a href="http://pages.github.com/">Github Pages</a> to host themselves. For programmers/developer/hackers who are always near a Mac or a PC, Octopress provides a lot of power in the hands of the author. Two commands below are enough to publish a blog post &ndash;</p>
+<p>After five years of using Wordpress as the blog engine and Akismet for keeping the spammers away, I wanted to try <a href="http://octopress.org">Octopress</a> after seeing all the cool blogs using it and <a href="http://pages.github.com/">Github Pages</a> to host themselves. For programmers/developer/hackers who are always near a Mac or a PC, Octopress provides a lot of power in the hands of the author. Two commands below are enough to publish a blog post &ndash;</p>
 
 <p><code>
 $ rake generate
