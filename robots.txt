@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://indyfromoz.github.io/sitemap.xml 
