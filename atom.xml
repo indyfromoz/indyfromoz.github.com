@@ -4,7 +4,7 @@
   <title><![CDATA[Indrajit Chakrabarty]]></title>
   <link href="http://indyfromoz.github.io/atom.xml" rel="self"/>
   <link href="http://indyfromoz.github.io/"/>
-  <updated>2013-09-09T00:09:33+10:00</updated>
+  <updated>2013-09-09T12:00:27+10:00</updated>
   <id>http://indyfromoz.github.io/</id>
   <author>
     <name><![CDATA[Indrajit Chakrabarty]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Linker Errors With Google Analytics 3.0 for iOS SDK]]></title>
+    <link href="http://indyfromoz.github.io/blog/2013/09/09/linker-errors-with-google-analytics-3-dot-0-for-ios-sdk/"/>
+    <updated>2013-09-09T11:50:00+10:00</updated>
+    <id>http://indyfromoz.github.io/blog/2013/09/09/linker-errors-with-google-analytics-3-dot-0-for-ios-sdk</id>
+    <content type="html"><![CDATA[<p>If you are using the <a href="https://developers.google.com/analytics/devguides/collection/ios/v3/">Google Analytics for iOS SDK v3.0</a> in your iOS app, it is likely that you will encounter linker errors after following the steps in the developer guide. Here is a snippet of the linker error I encoutered today &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Undefined symbols for architecture armv7:
+</span><span class='line'>  "_OBJC_CLASS_$_ASIdentifierManager", referenced from:
+</span><span class='line'>objc-class-ref in libGoogleAnalyticsServices.a(TAGAdvertiserId.o)
+</span><span class='line'>      objc-class-ref in libGoogleAnalyticsServices.a(TAGAdvertisingTrackingEnabledMacro.o)
+</span><span class='line'>      objc-class-ref in libGoogleAnalyticsServices.a(TAGMobileAdwordsUniqueIdMacro.o)
+</span><span class='line'>ld: symbol(s) not found for architecture armv7
+</span><span class='line'>clang: error: linker command failed with exit code 1 (use -v to see invocation)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The developer guide doesn&rsquo;t tell you to add <code>AdSupport.framework</code> in your project&rsquo;s build phases. Once <code>AdSupport.framework</code> is added in your project, the linker errors go away.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello Octopress]]></title>

@@ -9,7 +9,7 @@
 	<meta name="author" content="Indrajit Chakrabarty">
 
 	
-	<meta name="description" content="Sep 8th, 2013 Blogging, Octopress Hello Octopress I started a blog with Wordpress five years ago with the idea of sharing my travels as a developer &hellip;">
+	<meta name="description" content="Sep 9th, 2013 Analytics, Mobile, iOS Linker Errors With Google Analytics 3.0 for iOS SDK If you are using the Google Analytics for iOS SDK v3.0 in &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,59 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-09T11:50:00+10:00" data-updated="true" itemprop="datePublished">Sep 9<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/analytics/'>Analytics</a>, <a class='category' href='/blog/categories/mobile/'>Mobile</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/09/09/linker-errors-with-google-analytics-3-dot-0-for-ios-sdk/" itemprop="url">Linker Errors With Google Analytics 3.0 for iOS SDK</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>If you are using the <a href="https://developers.google.com/analytics/devguides/collection/ios/v3/">Google Analytics for iOS SDK v3.0</a> in your iOS app, it is likely that you will encounter linker errors after following the steps in the developer guide. Here is a snippet of the linker error I encoutered today &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Undefined symbols for architecture armv7:
+</span><span class='line'>  "_OBJC_CLASS_$_ASIdentifierManager", referenced from:
+</span><span class='line'>objc-class-ref in libGoogleAnalyticsServices.a(TAGAdvertiserId.o)
+</span><span class='line'>      objc-class-ref in libGoogleAnalyticsServices.a(TAGAdvertisingTrackingEnabledMacro.o)
+</span><span class='line'>      objc-class-ref in libGoogleAnalyticsServices.a(TAGMobileAdwordsUniqueIdMacro.o)
+</span><span class='line'>ld: symbol(s) not found for architecture armv7
+</span><span class='line'>clang: error: linker command failed with exit code 1 (use -v to see invocation)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The developer guide doesn&rsquo;t tell you to add <code>AdSupport.framework</code> in your project&rsquo;s build phases. Once <code>AdSupport.framework</code> is added in your project, the linker errors go away.</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
