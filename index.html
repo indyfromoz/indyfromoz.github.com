@@ -9,7 +9,7 @@
 	<meta name="author" content="Indrajit Chakrabarty">
 
 	
-	<meta name="description" content="Sep 9th, 2013 Analytics, Mobile, iOS Linker Errors With Google Analytics 3.0 for iOS SDK If you are using the Google Analytics for iOS SDK v3.0 in &hellip;">
+	<meta name="description" content="Sep 28th, 2013 MongoDB Installing MongoDB in Mac OS X There are numerous posts, manuals and readme articles on installation of MongoDB in Mac OS X. &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,141 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-28T22:14:00+10:00" data-updated="true" itemprop="datePublished">Sep 28<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/mongodb/'>MongoDB</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/09/28/installing-mongodb-in-mac-os-x/" itemprop="url">Installing MongoDB in Mac OS X</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>There are numerous posts, manuals and readme articles on installation of <a href="http://www.mongodb.org/">MongoDB</a> in Mac OS X. This post documents the steps I went through to install the latest release of MongoDB on my Mac running Mountain Lion 10.8.5 &amp; setting it up to run as a daemon. The steps outlined below closely follow the steps shared by Github user <a href="https://github.com/xiaolai">xiaolai</a> in his repository <a href="https://github.com/xiaolai/MongoDB-OSX-Launchctl">MongoDB-OSX-Launchctl</a>. One of the issue I faced following the steps in his readme was the a <em>Bad file descriptor</em> error raised by <code>launchctl</code>, possibly caused by a mistake I made in the paths of the directories required by MongDB.</p>
+
+<p>To setup MongoDB to run as a daemon, download the latest version of MongoDB and decompress the dowloaded file &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://downloads.mongodb.org/osx/mongodb-osx-x86_64-2.4.6.tgz 
+</span><span class='line'>tar -zxvf mongodb-osx-x86_64-2.4.6.tgz </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Copy the contents of the folder <code>mongodb-osx-x86_64-2.4.6/bin/</code> to <code>/opt/local/bin</code>. Alternatively, you can use Mac Ports or Homebrew to install MongoDB. The next steps assume MongoDB binaries are present in <code>/opt/local/bin</code>.</p>
+
+<p>Before you setup MongoDB to run as a daemon, you will need to create a data directory, a directory where log files will be written and a configuration file. Follow the steps below &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir -p /opt/local/var/db/mongodb
+</span><span class='line'>sudo mkdir -p /opt/local/var/log/
+</span><span class='line'>sudo touch /opt/local/var/log/mongodb.log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can provide a configuration file to MongoDB or skip the following steps. Read more about the MongoDB configuration here &ndash; <a href="http://docs.mongodb.org/manual/reference/configuration-options/">http://docs.mongodb.org/manual/reference/configuration-options/</a>. A basic MongoDB configuration file (name it <code>mongod.conf</code>) looks like this &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bind_ip = 127.0.0.1
+</span><span class='line'>journal = true</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you have created a configuration file, copy it to the appropriate directory &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir -p /opt/local/etc/mongodb
+</span><span class='line'>sudo cp mongod.conf /opt/local/etc/mongodb/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The important step in setting up MongoDB to run as a daemon in Mac OS X is to create a Plist file and use it as a <code>launchctl</code> item. Create a file called <code>org.mongo.mongod.plist</code> with the following contents &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</span><span class='line'>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+</span><span class='line'>&lt;plist version="1.0"&gt;
+</span><span class='line'>&lt;dict&gt;
+</span><span class='line'>    &lt;key&gt;Label&lt;/key&gt;
+</span><span class='line'>    &lt;string&gt;org.mongo.mongod&lt;/string&gt;
+</span><span class='line'>    &lt;key&gt;RunAtLoad&lt;/key&gt;
+</span><span class='line'>    &lt;true/&gt;
+</span><span class='line'>    &lt;key&gt;KeepAlive&lt;/key&gt;
+</span><span class='line'>    &lt;false/&gt;
+</span><span class='line'>    &lt;key&gt;ProgramArguments&lt;/key&gt;
+</span><span class='line'>    &lt;array&gt;
+</span><span class='line'>        &lt;string&gt;/opt/local/bin/mongod&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;--dbpath&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;/opt/local/var/db/mongodb&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;--logpath&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;/opt/local/var/log/mongodb.log&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;--config&lt;/string&gt;
+</span><span class='line'>        &lt;string&gt;/opt/local/etc/mongodb/mongod.conf&lt;/string&gt;     
+</span><span class='line'>    &lt;/array&gt;
+</span><span class='line'>&lt;/dict&gt;
+</span><span class='line'>&lt;/plist&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that the path to the <code>mongod</code> and the directories created earlier should be correctly specified in the Plist file. Any errors in these program arguments result in errors.</p>
+
+<p>Install the <code>launchctl</code> item like so &ndash;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp org.mongo.mongod.plist /Library/LaunchDaemons/.
+</span><span class='line'>sudo chown root:wheel /Library/LaunchDaemons/org.mongo.mongod.plist
+</span><span class='line'>sudo launchctl load /Library/LaunchDaemons/org.mongo.mongod.plist
+</span><span class='line'>sudo launchctl start org.mongo.mongod</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that <code>launchctl</code> can be setup to run MongoDB with a Plist in <code>/System/Library/LaunchDaemons</code>, however, in my case, <code>/Library/LaunchDaemons</code> worked without any issues. With the release of OS X Mavericks in the horizon, I may need to update the post with any changes in the steps above.</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
